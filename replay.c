@@ -177,7 +177,7 @@ int main(int argc, char *argv[])
 
 		//========		Start Sending Events		============
 				
-		char device[] = "/dev/input/event "; 
+		char device[] = "/dev/input/event3"; 
 		//[16] is for the event input number
 		
 		char* deviceP = device;
@@ -185,11 +185,12 @@ int main(int argc, char *argv[])
 		
 		j=0,k=0;
 		
+   		//deviceP[16] = eventType[k]+48; //add 48 to get to the ascii char
+		fd = open(device, O_RDWR);		
+
 		// For each of the line numbers get the event, validate it, and then write it
 		while(k < lineNumbers)
 		{				
-			deviceP[16] = eventType[k]+48; //add 48 to get to the ascii char
-			fd = open(deviceP, O_RDWR);		
 
 			int ret;
 			int version;

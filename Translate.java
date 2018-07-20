@@ -100,12 +100,15 @@ public class Translate
 						String[] tokens = null;
 						String splitOn = " ";
 											
-						tokens = temp.split(splitOn);					
-							
+						temp = temp.replace("    ", ""); //// junio
+						tokens = temp.split(splitOn);	
+
 						inputDeviceType = tokens[1];
 						inputDeviceType = removeColon(inputDeviceType);
 						String eventNumber = getInputDevice(inputDeviceType);
 						int currentEventIsValid = 0;
+
+
 						
 						// Check what eventNumber's are valid
 						// Given as input arg2, ex. 3,4,5,6
@@ -165,13 +168,20 @@ public class Translate
 					int seconds = 0;
 					int microseconds = 0;
 					
+
+					line = line.replace("    ", ""); //// junio
 					tokens = line.split(splitOn);					
 					timestampString = tokens[0];
 					
 					if(!timestampString.equals("add") && timestampString.length() != 0 && !timestampString.equals("could"))
 					{										
-						timestampString = removeColon(timestampString);						
 						
+
+						//timestampString = removeColon(timestampString); //// junio
+						timestampString = timestampString.replace("[", "");
+						timestampString = timestampString.replace("]", "");
+						timestampString = timestampString.replace(".", "-");
+
 						String[] times = null;											
 						times = timestampString.split("-");
 						seconds = stringToInt(times[0]);
@@ -363,5 +373,6 @@ public class Translate
 	}
 	
 }
+
 
 
