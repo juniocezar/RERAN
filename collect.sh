@@ -4,12 +4,25 @@
 ## ref: http://www.androidreran.com/software.php
 
 mkdir -p logs
-outFile=recordedEvents.txt
 
-if [[ ! -z "$1" ]]
+if [[ -z "$1" ]]
 then
-  outFile=$1
+  echo "You must pass the package name as an argument before proceding."
+  echo "Example: ./collect.sh org.mozilla.focus"
+  exit
 fi
+
+check_installed=$(adb shell pm list packages | grep $1)
+
+if [[ -z "$check_installed" ]]
+then
+  echo "The package ($1) is not currently installed in the device"
+  exit
+fi
+
+
+outFile=$1
+
 
 function ctrl_c() {
    echo ""
